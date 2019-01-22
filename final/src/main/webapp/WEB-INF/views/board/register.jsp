@@ -1,116 +1,149 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 
-    <%@include file="../includes/header.jsp" %>
+<%@include file="../includes/header.jsp"%>
 
-    <style>
-    .uploadResult {
-      width:100%;
-      background-color: gray;
-    }
-    .uploadResult ul{
-      display:flex;
-      flex-flow : row;
-      justify-content : center;
-      align-items: center;
-    }
-    .uploadResult ul li {
-      list-style:none;
-      padding: 10px;
-      align-content:center;
-      text-align:center;
-    }
+<style>
+.uploadResult {
+	width: 100%;
+	background-color: gray;
+}
 
-    .uploadResult ul li img{
-      width:100px;
-    }
-    .uploadResult ul li span {
-    	color : white;
-    }
+.uploadResult ul {
+	display: flex;
+	flex-flow: row;
+	justify-content: center;
+	align-items: center;
+}
 
-    .bigPictureWrapper {
-          position: absolute;
-          display : none;
-          justify-content: center;
-          align-items: center;
-          top: 0%;
-          width: 100%;
-          height: 100%;
-          background-color: gray;
-          z-index: 100;
-          background: rgba(255,255,255,0.5);
-    }
+.uploadResult ul li {
+	list-style: none;
+	padding: 10px;
+	align-content: center;
+	text-align: center;
+}
 
-    .bigPicture {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+.uploadResult ul li img {
+	width: 100px;
+}
 
-    .bigPicture img {
-      width: 600px;
-    }
-  </style>
+.uploadResult ul li span {
+	color: white;
+}
 
-    <div class="row">
-    	<div class="col-lg-12">
-    		<h1 class="page-header">Board Register</h1>
-    	</div>
-    </div>
+.bigPictureWrapper {
+	position: absolute;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	top: 0%;
+	width: 100%;
+	height: 100%;
+	background-color: gray;
+	z-index: 100;
+	background: rgba(255, 255, 255, 0.5);
+}
 
-    <div class="row">
-    	<div class="col-lg-12">
-    		<div class="panel panel-default">
-    			<div class="panel-heading">Board Register</div>
-    			<div class="panel-body">
-    				<form role="form" action="/board/register" method="post">
-    					<input type="hidden" name="${_csrf.parameterName}" value= "${_csrf.token }"/>
-    					<div class="form-group">
-    						<label>Title</label> <input class="form-control" name="title">
-    					</div>
+.bigPicture {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 
-    					<div class="form-group">
-    						<label>Text area</label> <textarea class="form-control" rows="3" name="content"></textarea>
-    					</div>
+.bigPicture img {
+	width: 600px;
+}
+</style>
+<form role="form" action="/board/register" method="post">
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">Board Register</h1>
+	</div>
+</div>
 
-    					<div class="form-group">
-    						<label>Writer</label> <input class="form-control" name="writer" 
-    						value='<sec:authentication property="principal.username"></sec:authentication>' readonly="readonly">
-    					</div>
-    					<button type="submit" class="btn btn-default">Submit Button</button>
-    					<button type="reset" class="btn btn-default">Reset Button</button>
-    				</form>
-    			</div>
-    		</div>
-    	</div>
-    </div>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">Board Register</div>
+			<div class="panel-body">
 
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">File Attach</div>
-          <div class="panel-body">
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token }" />
+					<div class="form-group">
+						<label>Title</label> <input class="form-control" name="title">
+					</div>
 
-          <div class="form-group uploadDiv">
-              <input type="file" name="uploadFile" multiple>
-          </div>
+					<div class="form-group">
+						<label>Text area</label>
+						<textarea name="content" id="editor"></textarea>
+						<script>
 
-          <div class="uploadResult">
-            <ul>
+                ClassicEditor
+                .create( document.querySelector( '#editor' ), {
 
-            </ul>
-          </div>
+                    toolbar: [ 'Heading','Link','bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote','undo','redo' ]
+                } )
+                .then( newEditor => {
+  					 editor = newEditor;
+  					editor.ui.view.editable.editableElement.style.height = '250px'; // textarea 크기 설정
+					} )
+                .catch( error => {
+                    console.log( error );
+                } );
 
-          </div>
+
+                </script>
+					</div>
+
+					<div class="form-group">
+						<label>Writer</label> <input class="form-control" name="writer"
+							value='<sec:authentication property="principal.username"></sec:authentication>'
+							readonly="readonly">
+					</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">File Attach</div>
+			<div class="panel-body">
+
+				<div class="form-group uploadDiv">
+					<input type="file" name="uploadFile" multiple>
+				</div>
+
+				<div class="uploadResult">
+					<ul>
+
+					</ul>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+</div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="panel panel-default">
+        <div class="panel-body" align="middle">
+        <button type="submit" class="btn btn-primary">Submit</button>
         </div>
       </div>
     </div>
+  </div>
+</form>
 
-    <script type="text/javascript">
+<script type="text/javascript">
 	$(document).ready(function(e){
 
 
@@ -129,6 +162,8 @@
             var jobj = $(obj);
 
             console.dir(jobj);
+
+
 
             str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
             str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
@@ -158,12 +193,12 @@
             }
             return true;
           }
-          
-          
-          
+
+
+
 		var csrfHeaderName = "${_csrf.headerName}";
 		var csrfTokenValue = "${_csrf.token}";
-			
+
           $("input[type='file']").change(function(e){
 
             var formData = new FormData();
@@ -243,7 +278,7 @@
 
         	  console.log("delete file");
 
-        	  var targetFile = $(this).data("file");
+        	var targetFile = $(this).data("file");
             var type = $(this).data("type");
 
             var targetLi = $(this).closest("li");
@@ -262,7 +297,6 @@
                 dataType : 'text',
                 type : 'POST',
                 success : function(result){
-
                   targetLi.remove();
                 }
 
@@ -276,4 +310,4 @@
 	  </script>
 
 
-    <%@include file = "../includes/footer.jsp"%>
+<%@include file="../includes/footer.jsp"%>

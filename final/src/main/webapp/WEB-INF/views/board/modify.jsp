@@ -37,8 +37,27 @@
     					</div>
 
     					<div class="form-group">
-    						<label>Text area</label> <textarea class="form-control" rows="3" name="content" >
+    						<label>Text area</label> <textarea class="form-control" rows="3" name="content" id="editor">
     						<c:out value="${board.content }"></c:out></textarea>
+    						
+    			<script>
+                
+                ClassicEditor
+                .create( document.querySelector( '#editor' ), {
+                    
+                    toolbar: [ 'Heading','Link','bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote','undo','redo' ]
+                } )
+                .then( newEditor => {
+ 					 editor = newEditor;
+   					editor.ui.view.editable.editableElement.style.height = '250px'; // textarea 크기 설정
+ 					} )
+                .catch( error => {
+                    console.log( error );
+                } );
+
+                       
+                </script>
+    						
     					</div>
 
     					<div class="form-group">
@@ -62,11 +81,11 @@
 				
 				<sec:authorize access="isAuthenticated()">
 					<c:if test="${pinfo.username eq board.writer }">		
-    					<button type="submit" data-oper='modify' class="btn btn-default">Modify</button>
-    					<button type="submit" data-oper='remove' class="btn btn-danger">Remove</button>
+    					<button type="submit" data-oper='modify' class="btn btn-default btn-submit">Modify</button>
+    					<button type="submit" data-oper='remove' class="btn btn-danger btn-submit">Remove</button>
     				</c:if>	
     			</sec:authorize>
-    					<button type="submit" data-oper='list' class="btn btn-info">List</button>
+    					<button type="submit" data-oper='list' class="btn btn-info btn-submit">List</button>
 
     			</form>
 
@@ -156,7 +175,7 @@
 
     	var formObj = $("form");
 
-    	$('button').on("click", function(e){
+    	$('.btn-submit').on("click", function(e){
 
     		e.preventDefault();
 

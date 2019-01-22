@@ -40,6 +40,8 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+	<!-- CKEditor CDN -->
+	<script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js"></script>
 </head>
 
 <body>
@@ -60,21 +62,21 @@
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                
-             
+
+
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        
-                        
+
+
                         <sec:authorize access="isAuthenticated()">
                         <li><a href="/customLogout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                         </sec:authorize>
-                        
+
                         <sec:authorize access="isAnonymous()">
                         <li><a href="/customLogin"><i class="fa fa-sign-out fa-fw"></i> Login</a>
                         </li>
@@ -86,9 +88,9 @@
             </ul>
             <!-- /.navbar-top-links -->
 
-            
+
         </nav>
 
         <div id="page-wrapper">
-        
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

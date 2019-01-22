@@ -42,6 +42,9 @@
                     <div class="panel-body">
                         <form role="form" method="post" action="/login">
                             <fieldset>
+                            	<div class="form-group">
+                            	<img src="/resources/img/logo.png">
+                            	</div>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="userid" name="username" type="text" autofocus>
                                 </div>
@@ -75,10 +78,10 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="/resources/dist/js/sb-admin-2.js"></script>
-    
+
     <script>
     	$(".btn-success").on("click",function(e){
-    		
+
     		e.preventDefault();
     		$("form").submit();
     	});

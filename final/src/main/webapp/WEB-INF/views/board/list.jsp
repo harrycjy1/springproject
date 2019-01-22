@@ -27,7 +27,7 @@
                     				<th>수정일</th>
                     			</tr>
                     		</thead>
-                        
+
                				<c:forEach items="${list}" var="board">
                					<tr>
                						<td><c:out value="${board.bno }"/></td>
@@ -109,7 +109,7 @@
                     				<div class="modal-body">처리가 완료되었습니다.</div>
                     				<div class="modal-footer">
                     				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    				<button type="button" class="btn btn-primary">Save changes</button>
+
                     				</div>
                     			</div>
                     			<!-- /. modal-content -->

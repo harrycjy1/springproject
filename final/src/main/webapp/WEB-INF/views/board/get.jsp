@@ -1,219 +1,245 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<%@taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-    <%@include file="../includes/header.jsp" %>
+<%@taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
+<%@include file="../includes/header.jsp"%>
 
-    <div class="row">
-    	<div class="col-lg-12">
-    		<h1 class="page-header">Board</h1>
-    	</div>
-    </div>
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">Board</h1>
+	</div>
+</div>
 
-    <div class="row">
-    	<div class="col-lg-12">
-    		<div class="panel panel-default">
-    			<div class="panel-heading">Board Read Page</div>
-    			<div class="panel-body">
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">Board Read Page</div>
+			<div class="panel-body">
 
-    					<div class="form-group">
-    						<label>Bno</label> <input class="form-control" name="bno"
-    						value='<c:out value="${board.bno }"/>' readonly="readonly">
-    					</div>
+				<%-- <div class="form-group">
+					<label>Bno</label> <input class="form-control" name="bno"
+						value='<c:out value="${board.bno }"/>' readonly="readonly">
+				</div> --%>
 
-    					<div class="form-group">
-    						<label>Title</label> <input class="form-control" name="title"
-    						value='<c:out value="${board.title }"/>' readonly="readonly">
-    					</div>
+				<div class="form-group">
+					<label>Title</label> <input class="form-control" name="title"
+						value='<c:out value="${board.title }"/>' readonly="readonly">
+				</div>
 
-    					<div class="form-group">
-    						<label>Text area</label> <textarea class="form-control" rows="3" name="content"
-    						readonly="readonly"><c:out value="${board.content }"></c:out></textarea>
-    					</div>
+				<div class="form-group">
+					<label>Contents</label>
+					<textarea class="form-control" rows="3" name="content" id="editor"
+						readonly="readonly"><c:out value="${board.content }"></c:out></textarea>
+					<script>
 
-    					<div class="form-group">
-    						<label>Writer</label> <input class="form-control" name="writer"
-    						value='<c:out value="${board.writer }"></c:out>' readonly="readonly">
-    					</div>
-
-					<sec:authentication property="principal" var="pinfo"/>
-
-						<sec:authorize access="isAuthenticated()">
-    					<c:if test="${pinfo.username eq board.writer }">
-    					<button data-oper='modify' class="btn btn-default">Modify</button>
-    					</c:if>
-    					</sec:authorize>
-
-    					<button data-oper='list' class="btn btn-default">List</button>
+               	 		ClassicEditor
+                		.create( document.querySelector('#editor'))
+               	 		.then( newEditor => {
+       					 editor = newEditor;
+       					 editor.ui.view.editable.editableElement.style.height = '250px';
+       					 editor.isReadOnly = true;
+    					} )
+                		.catch( error => {
+                   		console.log( error );
+                		} );
 
 
-    					<form id="operForm" action="/board/modify" method="get">
-    					<input type="hidden" id="bno" name="bno" value='<c:out value="${board.bno }"></c:out>'>
-    					<input type="hidden" name="pageNum" value='<c:out value="${cri.pageNum }"></c:out>'>
-    					<input type="hidden" name="amount" value='<c:out value="${cri.amount }"></c:out>'>
-    					<input type="hidden" name="keyword" value='<c:out value="${cri.keyword }"></c:out>'>
-    					<input type="hidden" name="type" value='<c:out value="${cri.type }"></c:out>'>
-    					</form>
+                </script>
 
-    			</div>
-    		</div>
-    	</div>
-    </div>
+				</div>
 
-    <%-- attachFile --%>
-    <div class="bigPictureWrapper">
-      <div class="bigPicture">
+				<div class="form-group">
+					<label>Writer</label> <input class="form-control" name="writer"
+						value='<c:out value="${board.writer }"></c:out>'
+						readonly="readonly">
+				</div>
 
-      </div>
-    </div>
+				<sec:authentication property="principal" var="pinfo" />
 
-    <style>
-    .uploadResult {
-      width:100%;
-      background-color: gray;
-    }
-    .uploadResult ul{
-      display:flex;
-      flex-flow : row;
-      justify-content : center;
-      align-items: center;
-    }
-    .uploadResult ul li {
-      list-style:none;
-      padding: 10px;
-      align-content:center;
-      text-align:center;
-    }
+				<sec:authorize access="isAuthenticated()">
+					<c:if test="${pinfo.username eq board.writer }">
+						<button data-oper='modify' class="btn btn-default">Modify</button>
+					</c:if>
+				</sec:authorize>
 
-    .uploadResult ul li img{
-      width:100px;
-    }
-    .uploadResult ul li span {
-    	color : white;
-    }
-
-    .bigPictureWrapper {
-          position: absolute;
-          display : none;
-          justify-content: center;
-          align-items: center;
-          top: 0%;
-          width: 100%;
-          height: 100%;
-          background-color: gray;
-          z-index: 100;
-          background: rgba(255,255,255,0.5);
-    }
-
-    .bigPicture {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .bigPicture img {
-      width: 600px;
-    }
-  </style>
-
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="panel panel-default">
-
-          <div class="panel-heading">Files</div>
-
-          <div class="panel-body">
-
-          <div class="uploadResult">
-            <ul>
-
-            </ul>
-          </div>
-          </div>
-        </div>
-      </div>
-    </div>
+				<button data-oper='list' class="btn btn-default">List</button>
 
 
+				<form id="operForm" action="/board/modify" method="get">
+					<input type="hidden" id="bno" name="bno"
+						value='<c:out value="${board.bno }"></c:out>'> <input
+						type="hidden" name="pageNum"
+						value='<c:out value="${cri.pageNum }"></c:out>'> <input
+						type="hidden" name="amount"
+						value='<c:out value="${cri.amount }"></c:out>'> <input
+						type="hidden" name="keyword"
+						value='<c:out value="${cri.keyword }"></c:out>'> <input
+						type="hidden" name="type"
+						value='<c:out value="${cri.type }"></c:out>'>
+				</form>
 
-    <%-- reply --%>
-    <div class="row">
-      <div class="col-lg-12">
-        <%-- /.panel --%>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <i class="fa fa-comments fa-fw"></i>Reply
-            <sec:authorize access="isAuthenticated()">
-            <button id="addReplyBtn" class="btn btn-primary btn-xs pull-right">New Reply</button>
-            </sec:authorize>
-          </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%-- attachFile --%>
+<div class="bigPictureWrapper">
+	<div class="bigPicture"></div>
+</div>
+
+<style>
+.uploadResult {
+	width: 100%;
+	background-color: gray;
+}
+
+.uploadResult ul {
+	display: flex;
+	flex-flow: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.uploadResult ul li {
+	list-style: none;
+	padding: 10px;
+	align-content: center;
+	text-align: center;
+}
+
+.uploadResult ul li img {
+	width: 100px;
+}
+
+.uploadResult ul li span {
+	color: white;
+}
+
+.bigPictureWrapper {
+	position: absolute;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	top: 0%;
+	width: 100%;
+	height: 100%;
+	background-color: gray;
+	z-index: 100;
+	background: rgba(255, 255, 255, 0.5);
+}
+
+.bigPicture {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.bigPicture img {
+	width: 600px;
+}
+</style>
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+
+			<div class="panel-heading">Files</div>
+
+			<div class="panel-body">
+
+				<div class="uploadResult">
+					<ul>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 
-          <%-- /.panel-heading --%>
-          <div class="panel-body">
-            <ul class="chat">
-              <%-- start reply --%>
-              <li class="left clearfix" data-rno='12'>
-                <div class="header">
-                  <strong class="primary-font">user00</strong>
-                  <small class="pull-right text-muted">2018-01-01 13:13</small>
-                </div>
-                <p>Good job!</p>
-              </li>
-              <%-- end reply --%>
-            </ul>
-            <%-- end ul --%>
-          </div>
-        <div class="panel-footer">
 
-        </div>
-          <%-- /.panel .chat-panel --%>
-        </div>
-      </div>
-    </div>
-
-    <%-- modal --%>
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby ="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">REPLY MODAL</h4>
-          </div>
-          <div class="modal-body">
-            <div class="form-group">
-              <label>Reply</label>
-                <input class="form-control" name="reply" value="New Reply!">
-            </div>
-            <div class="form-group">
-              <label>Replyer</label>
-                <input class="form-control" name="replyer" value="replyer" readonly>
-            </div>
-            <div class="form-group">
-              <label>Reply Date</label>
-                <input class="form-control" name="replyDate" value="">
-            </div>
-          </div>
-
-        <div class="modal-footer">
-          <button id="modalModBtn" type="button" class="btn btn-warning">Modify</button>
-          <button id="modalRemoveBtn" type="button" class="btn btn-danger">Remove</button>
-          <button id="modalRegisterBtn" type="button" class="btn btn-primary">Register</button>
-          <button id="modalCloseBtn" type="button" class="btn btn-default">Close</button>
-        </div>
-        </div>
-
-      </div>
-
-    </div>
+<%-- reply --%>
+<div class="row">
+	<div class="col-lg-12">
+		<%-- /.panel --%>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<i class="fa fa-comments fa-fw"></i>Reply
+				<sec:authorize access="isAuthenticated()">
+					<button id="addReplyBtn" class="btn btn-primary btn-xs pull-right">New
+						Reply</button>
+				</sec:authorize>
+			</div>
 
 
-    <script type="text/javascript" src = "/resources/js/reply.js"></script>
+			<%-- /.panel-heading --%>
+			<div class="panel-body">
+				<ul class="chat">
+					<%-- start reply --%>
+					<li class="left clearfix" data-rno='12'>
+						<div class="header">
+							<strong class="primary-font">user00</strong> <small
+								class="pull-right text-muted">2018-01-01 13:13</small>
+						</div>
+						<p>Good job!</p>
+					</li>
+					<%-- end reply --%>
+				</ul>
+				<%-- end ul --%>
+			</div>
+			<div class="panel-footer"></div>
+			<%-- /.panel .chat-panel --%>
+		</div>
+	</div>
+</div>
 
-    <script type="text/javascript">
+<%-- modal --%>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">REPLY MODAL</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label>Reply</label> <input class="form-control" name="reply"
+						value="New Reply!">
+				</div>
+				<div class="form-group">
+					<label>Replyer</label> <input class="form-control" name="replyer"
+						value="replyer" readonly>
+				</div>
+				<div class="form-group">
+					<label>Reply Date</label> <input class="form-control"
+						name="replyDate" value="">
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button id="modalModBtn" type="button" class="btn btn-warning">Modify</button>
+				<button id="modalRemoveBtn" type="button" class="btn btn-danger">Remove</button>
+				<button id="modalRegisterBtn" type="button" class="btn btn-primary">Register</button>
+				<button id="modalCloseBtn" type="button" class="btn btn-default">Close</button>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+
+<script type="text/javascript" src="/resources/js/reply.js"></script>
+
+<script type="text/javascript">
       $(document).ready(function(){
 
         (function(){
@@ -277,13 +303,14 @@
           },1000);
         });
 
+
         function showImage(fileCallPath){
 
           $(".bigPictureWrapper").css("display","flex").show();
 
           $(".bigPicture")
           .html("<img src='/display?fileName="+fileCallPath+"' />")
-          .animate({width:'100%',height:'100%'},1000);
+          .animate({width:'100%',height:'100%'}, 1000);
 
 
         }
@@ -295,7 +322,7 @@
       });
     </script>
 
-    <script>
+<script>
 
     $(document).ready(function(){
 
@@ -413,26 +440,26 @@
 
         //modify reply on modal
         modalModBtn.on("click", function(e){
-        	
+
        	var originalReplyer = modalInputReplyer.val();
-        	
+
           var reply = {
         		  		rno:modal.data("rno"),
         		  		reply : modalInputReply.val(),
         		  		replyer : originalReplyer
         			};
-          
+
           if(!replyer){
         	  alert("로그인 후 수정이 가능합니다.");
         	  modal.modal("hide");
         	  return;
-        	  
+
           }
-          
+
           console.log("Original Replyer : "+ originalReplyer);
-          
+
           if(replyer != originalReplyer){
-        	  
+
         	  alert("자신이 작성한 댓글만 수정이 가능합니다.");
         	  modal.modal("hide");
         	  return;
@@ -476,6 +503,10 @@
             modal.modal("hide");
             showList(pageNum);
           });
+        });
+
+        $("#modalCloseBtn").on("click",function(e){
+        	modal.modal("hide");
         });
 
 
@@ -550,7 +581,7 @@
     </script>
 
 
-    <script type="text/javascript">
+<script type="text/javascript">
     $(document).ready(function() {
 
     	var operForm = $("#operForm");
@@ -568,4 +599,4 @@
     </script>
 
 
-    <%@include file = "../includes/footer.jsp"%>
+<%@include file="../includes/footer.jsp"%>
