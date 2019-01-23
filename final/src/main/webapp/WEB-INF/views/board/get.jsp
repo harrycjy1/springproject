@@ -591,7 +591,7 @@
     	}); //jquery 속성 선택자
 
     	$("button[data-oper='list']").on("click",function(e){
-    		operForm.find("#bno").remove(); //form 지우고
+    		operForm.find("#bno").remove(); //form 지우고 list에 bno는 필요없으므로
     		operForm.attr("action","/board/list"); //list get 액션 보내고
     		operForm.submit(); //제출 - > list page로 이동
     	});

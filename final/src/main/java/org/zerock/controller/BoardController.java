@@ -81,6 +81,7 @@ public class BoardController {
 			log.info("total : " + total);
 			
 			model.addAttribute("pageMaker", new PageDTO(cri, total));
+			
 		}
 		
 		@GetMapping("/register")

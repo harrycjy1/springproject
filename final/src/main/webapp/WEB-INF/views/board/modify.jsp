@@ -198,7 +198,7 @@
     			formObj.append(typeTag);
 
     		} else if(operation ==='modify'){
-          console.log('submit clicked');
+          console.log('modify clicked');
 
           var str = "";
 
