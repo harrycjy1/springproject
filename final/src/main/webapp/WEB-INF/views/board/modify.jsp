@@ -25,11 +25,9 @@
     				<input type="hidden" name='amount' value='<c:out value="${cri.amount }"></c:out>'>
     				<input type="hidden" name="keyword" value='<c:out value="${cri.keyword }"></c:out>'>
     					<input type="hidden" name="type" value='<c:out value="${cri.type }"></c:out>'>
+    					<input type="hidden" name="bno" value='<c:out value="${board.bno }"/>'>
 
-    					<div class="form-group">
-    						<label>Bno</label> <input class="form-control" name="bno"
-    						value='<c:out value="${board.bno }"/>' readonly="readonly">
-    					</div>
+    					
 
     					<div class="form-group">
     						<label>Title</label> <input class="form-control" name="title"
@@ -37,7 +35,7 @@
     					</div>
 
     					<div class="form-group">
-    						<label>Text area</label> <textarea class="form-control" rows="3" name="content" id="editor">
+    						<label>Contents</label> <textarea class="form-control" rows="3" name="content" id="editor">
     						<c:out value="${board.content }"></c:out></textarea>
     						
     			<script>

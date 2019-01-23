@@ -5,7 +5,7 @@
 	<mapper namespace="org.zerock.mapper.BoardMapper">
 
 	<select id="getList" resultType="org.zerock.domain.BoardVO">
-	<![CDATA[select * from tbl_board where bno >0 ]]>
+	<![CDATA[select * from tbl_board where bno >0 ]]>  <!-- cdata 태그의 경우 xml에서 < > 가 부등호의 의미를 가지도록 하기 위해 사용 -->
 	</select>
 
 	<insert id="insert">insert into tbl_board(bno,title,content,writer) values
