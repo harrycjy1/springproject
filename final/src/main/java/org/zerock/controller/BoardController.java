@@ -130,7 +130,7 @@ public class BoardController {
 //			rttr.addAttribute("type",cri.getType());
 //			rttr.addAttribute("keyword",cri.getKeyword());
 			
-			return "redirect:/board/list"+ cri.getListLink();
+			return "redirect:/board/list"+ cri.getListLink(); //수정이 끝나면 list로 화면 전환(cri는 그전 페이징을 유지하기 위함)
 		}
 		
 		@PreAuthorize("principal.username == #writer")
