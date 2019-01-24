@@ -120,7 +120,7 @@ public class UploadController {
 					//IE has file path
 					uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
 					log.info("only file name : "+uploadFileName);
-					attachDTO.setFileName(uploadFileName); //파일이름 설정
+					attachDTO.setFileName(uploadFileName);
 
 					UUID uuid = UUID.randomUUID();
 
