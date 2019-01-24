@@ -79,7 +79,7 @@
                     			</c:if>
 
                     			<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-                    				<li class="paginate_button"><a href="${num}">${num }</a></li>
+                    				<li class="paginate_button ${pageMaker.cri.pageNum == num ? 'active':'' }"><a href="${num}">${num }</a></li>
                     			</c:forEach>
 
                     			<c:if test="${pageMaker.next }">
@@ -193,7 +193,7 @@
             		searchForm.find("input[name='pageNum']").val("1"); //1페이지로 검색
           		  	e.preventDefault(); // 폼태그의 전송막고
 
-                searchForm.submit(); // 여기서 submit ㄴㅇㄴㅇㅇㄹㅇ
+                searchForm.submit(); // 여기서 submit
 
 
             	});
