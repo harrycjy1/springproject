@@ -181,15 +181,7 @@
 			<%-- /.panel-heading --%>
 			<div class="panel-body">
 				<ul class="chat">
-					<%-- start reply --%>
-					<li class="left clearfix" data-rno='12'>
-						<div class="header">
-							<strong class="primary-font">user00</strong> <small
-								class="pull-right text-muted">2018-01-01 13:13</small>
-						</div>
-						<p>Good job!</p>
-					</li>
-					<%-- end reply --%>
+					
 				</ul>
 				<%-- end ul --%>
 			</div>
@@ -239,89 +231,6 @@
 
 <script type="text/javascript" src="/resources/js/reply.js"></script>
 
-<script type="text/javascript">
-      $(document).ready(function(){
-
-        (function(){
-
-          var bno = '<c:out value="${board.bno}"></c:out>';
-
-          $.getJSON("/board/getAttachList", {bno:bno}, function(arr){
-            console.log(arr);
-
-            var str = "";
-
-            $(arr).each(function(i, attach){
-
-              //image type
-              if(attach.fileType){
-                var fileCallPath = encodeURIComponent(attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);
-
-                str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-fileName = '"+attach.fileName+"' data-type = '"+attach.fileType+"' ><div>";
-                str += "<img src='/display?fileName="+fileCallPath+"'>";
-                str += "</div>";
-                str += "</li>";
-              } else {
-
-            	  str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-fileName = '"+attach.fileName+"' data-type = '"+attach.fileType+"' ><div>";
-            	  str += "<span> "+attach.fileName +"</span><br/>";
-            	  str += "<img src = '/resources/img/attach.png'>";
-            	  str += "</div>";
-            	  str += "</li>";
-              }
-
-            });
-            $(".uploadResult ul").html(str);
-
-          }); //end get JSON
-        })(); //end function
-
-        //CLICK IMAGE ON
-        $(".uploadResult").on("click","li",function(e){
-          console.log("view image");
-
-          var liObj = $(this);
-          console.log(liObj.data("type"));
-
-          var path = encodeURIComponent(liObj.data("path")+"/"+liObj.data("uuid")+"_"+liObj.data("filename"));
-
-
-
-          if(liObj.data("type")){
-            showImage(path.replace(new RegExp(/\\/g),"/"));
-          } else {
-        	  //download
-            self.location = "/download?fileName="+path
-          }
-        });
-
-        //click image turn off
-        $(".bigPictureWrapper").on("click",function(e){
-          $(".bigPicture").animate({width:'0%', height:'0%'},1000);
-          setTimeout(function(){
-            $('.bigPictureWrapper').hide();
-          },1000);
-        });
-
-
-        function showImage(fileCallPath){
-
-          $(".bigPictureWrapper").css("display","flex").show();
-
-          $(".bigPicture")
-          .html("<img src='/display?fileName="+fileCallPath+"' />")
-          .animate({width:'100%',height:'100%'}, 1000);
-
-
-        }
-
-
-
-
-
-      });
-    </script>
-
 <script>
 
     $(document).ready(function(){
@@ -360,6 +269,68 @@
             showReplyPage(replyCnt);
           }); //end function
         }//end showlist
+        
+      //댓글 페이징 번호 출력
+        var pageNum = 1;
+        var replyPageFooter = $(".panel-footer");
+
+        function showReplyPage(replyCnt){
+
+          var endNum = Math.ceil(pageNum / 10.0) * 10;
+          var startNum = endNum -9;
+
+          var prev = startNum != 1;
+          var next = false;
+
+          if(endNum * 10 >= replyCnt){
+            endNum  = Math.ceil(replyCnt/10.0);
+          }
+
+          if(endNum * 10 <replyCnt){
+            next = true;
+          }
+
+          var str = "<ul class='pagination pull-right'>";
+
+          if(prev){
+            str += "<li class='page-item'><a class='page-link' href ='"
+            + (startNum -1)+"'>Previous</a></li>";
+          }
+
+          for(var i= startNum ; i<= endNum; i++){
+
+            var active = pageNum ==i ? "active" : "";
+
+            str += "<li class='page-item "+active+" '><a class='page-link' href ='"
+            + i+"'>"+i+"</a></li>";
+          }
+
+          if(next){
+            str += "<li class='page-item'><a class='page-link' href ='"
+            + (endNum + 1)+"'>Next</a></li>";
+          }
+
+          str += "</ul></div>";
+
+          console.log(str);
+
+          replyPageFooter.html(str);
+
+        }
+        
+        replyPageFooter.on("click","li a", function(e){
+            e.preventDefault(); //a태그의 기본 동작을 제한한다.
+            console.log("page click");
+
+            var targetPageNum = $(this).attr("href");
+
+            console.log("targetPageNum : "+ targetPageNum);
+
+            pageNum = targetPageNum;
+
+            showList(pageNum);
+
+          });
 
         var modal = $(".modal");
         var modalInputReply = modal.find("input[name='reply']");
@@ -511,67 +482,9 @@
 
 
 
-      //댓글 페이징 번호 출력
-      var pageNum = 1;
-      var replyPageFooter = $(".panel-footer");
+      
 
-      function showReplyPage(replyCnt){
-
-        var endNum = Math.ceil(pageNum / 10.0) * 10;
-        var startNum = endNum -9;
-
-        var prev = startNum != 1;
-        var next = false;
-
-        if(endNum * 10 >= replyCnt){
-          endNum  = Math.ceil(replyCnt/10.0);
-        }
-
-        if(endNum * 10 <replyCnt){
-          next = true;
-        }
-
-        var str = "<ul class='pagination pull-right'>";
-
-        if(prev){
-          str += "<li class='page-item'><a class='page-link' href ='"
-          + (startNum -1)+"'>Previous</a></li>";
-        }
-
-        for(var i= startNum ; i<= endNum; i++){
-
-          var active = pageNum ==i ? "active" : "";
-
-          str += "<li class='page-item "+active+" '><a class='page-link' href ='"
-          + i+"'>"+i+"</a></li>";
-        }
-
-        if(next){
-          str += "<li class='page-item'><a class='page-link' href ='"
-          + (endNum + 1)+"'>Next</a></li>";
-        }
-
-        str += "</ul></div>";
-
-        console.log(str);
-
-        replyPageFooter.html(str);
-
-      }
-
-      replyPageFooter.on("click","li a", function(e){
-        e.preventDefault(); //a태그의 기본 동작을 제한한다.
-        console.log("page click");
-
-        var targetPageNum = $(this).attr("href");
-
-        console.log("targetPageNum : "+ targetPageNum);
-
-        pageNum = targetPageNum;
-
-        showList(pageNum);
-
-      });
+      
 
 
 
@@ -579,6 +492,95 @@
 
 
     </script>
+
+
+
+
+
+<script type="text/javascript">
+      $(document).ready(function(){
+
+        (function(){
+
+          var bno = '<c:out value="${board.bno}"></c:out>';
+
+          $.getJSON("/board/getAttachList", {bno:bno}, function(arr){
+            console.log(arr);
+
+            var str = "";
+
+            $(arr).each(function(i, attach){
+
+              //image type
+              if(attach.fileType){
+                var fileCallPath = encodeURIComponent(attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);
+
+                str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-fileName = '"+attach.fileName+"' data-type = '"+attach.fileType+"' ><div>";
+                str += "<img src='/display?fileName="+fileCallPath+"'>";
+                str += "</div>";
+                str += "</li>";
+              } else {
+
+            	  str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-fileName = '"+attach.fileName+"' data-type = '"+attach.fileType+"' ><div>";
+            	  str += "<span> "+attach.fileName +"</span><br/>";
+            	  str += "<img src = '/resources/img/attach.png'>";
+            	  str += "</div>";
+            	  str += "</li>";
+              }
+
+            });
+            $(".uploadResult ul").html(str);
+
+          }); //end get JSON
+        })(); //end function
+
+        //CLICK IMAGE ON
+        $(".uploadResult").on("click","li",function(e){
+          console.log("view image");
+
+          var liObj = $(this);
+          console.log(liObj.data("type"));
+
+          var path = encodeURIComponent(liObj.data("path")+"/"+liObj.data("uuid")+"_"+liObj.data("filename"));
+
+
+
+          if(liObj.data("type")){
+            showImage(path.replace(new RegExp(/\\/g),"/"));
+          } else {
+        	  //download
+            self.location = "/download?fileName="+path
+          }
+        });
+
+        //click image turn off
+        $(".bigPictureWrapper").on("click",function(e){
+          $(".bigPicture").animate({width:'0%', height:'0%'},1000);
+          setTimeout(function(){
+            $('.bigPictureWrapper').hide();
+          },1000);
+        });
+
+
+        function showImage(fileCallPath){
+
+          $(".bigPictureWrapper").css("display","flex").show();
+
+          $(".bigPicture")
+          .html("<img src='/display?fileName="+fileCallPath+"' />")
+          .animate({width:'100%',height:'100%'}, 1000);
+
+
+        }
+
+
+
+
+
+      });
+    </script>
+
+
 
 
 <script type="text/javascript">
