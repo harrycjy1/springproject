@@ -102,7 +102,7 @@ public class UploadController {
 				List<AttachFileDTO> list = new ArrayList<>();
 				String uploadFolder = "C:\\upload";
 
-				String uploadFolderPath = getFolder();
+				String uploadFolderPath = getFolder(); //당일 날짜 폴더 생성
 
 				//make folder --
 				File uploadPath = new File(uploadFolder, uploadFolderPath);
@@ -153,7 +153,7 @@ public class UploadController {
 				return new ResponseEntity<>(list,HttpStatus.OK);
 			}
 		
-		@GetMapping("/display")
+			@GetMapping("/display")
 			@ResponseBody
 			public ResponseEntity<byte[]> getFile(String fileName){
 

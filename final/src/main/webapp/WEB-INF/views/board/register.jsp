@@ -282,6 +282,8 @@
             var type = $(this).data("type");
 
             var targetLi = $(this).closest("li");
+            
+            console.log(targetFile+"::::"+ type);
 
             var check = confirm("sure?");
 
