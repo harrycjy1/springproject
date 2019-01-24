@@ -542,7 +542,7 @@
 
           var active = pageNum ==i ? "active" : "";
 
-          str += "<li class='page-item'"+active+" '><a class='page-link' href ='"
+          str += "<li class='page-item "+active+" '><a class='page-link' href ='"
           + i+"'>"+i+"</a></li>";
         }
 

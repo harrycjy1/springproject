@@ -29,7 +29,8 @@ import lombok.extern.log4j.Log4j;
 public class ReplyController {
 
 	private ReplyService service;
-
+	
+	//ResponseEntity는 데이터와 함께 HTTP헤더의 상태 메시지 등을 같이전달하는 용도
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value="/new",
 			consumes= "application/json",
