@@ -190,10 +190,10 @@
             			return false;
             		}
 
-            		searchForm.find("input[name='pageNum']").val("1");
-          		  	e.preventDefault();
+            		searchForm.find("input[name='pageNum']").val("1"); //1페이지로 검색
+          		  	e.preventDefault(); // 폼태그의 전송막고
 
-                searchForm.submit();
+                searchForm.submit(); // 여기서 submit
 
 
             	});
