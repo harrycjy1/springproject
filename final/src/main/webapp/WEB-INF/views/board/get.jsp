@@ -181,7 +181,7 @@
 			<%-- /.panel-heading --%>
 			<div class="panel-body">
 				<ul class="chat">
-					
+
 				</ul>
 				<%-- end ul --%>
 			</div>
@@ -243,7 +243,7 @@
         function showList(page){
 
           replyService.getList({bno:bnoValue, page : page||1}, function(replyCnt,list){
-
+			
 
             if(page == -1){
               pageNum = Math.ceil(replyCnt/10.0);
@@ -269,7 +269,7 @@
             showReplyPage(replyCnt);
           }); //end function
         }//end showlist
-        
+
       //댓글 페이징 번호 출력
         var pageNum = 1;
         var replyPageFooter = $(".panel-footer");
@@ -317,7 +317,7 @@
           replyPageFooter.html(str);
 
         }
-        
+
         replyPageFooter.on("click","li a", function(e){
             e.preventDefault(); //a태그의 기본 동작을 제한한다.
             console.log("page click");
@@ -385,7 +385,7 @@
             modal.find("input").val("");
             modal.modal("hide");
 
-            
+
             showList(1);
           })
         });
@@ -482,9 +482,9 @@
 
 
 
-      
 
-      
+
+
 
 
 
@@ -572,10 +572,6 @@
 
 
         }
-
-
-
-
 
       });
     </script>
