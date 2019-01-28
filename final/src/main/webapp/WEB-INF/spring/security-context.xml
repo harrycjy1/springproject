@@ -25,6 +25,8 @@
 		
 		<security:form-login login-page="/customLogin"/>
 		
+		<!-- <security:csrf disabled="true"/> -->
+		
 		<security:logout logout-url="/customLogout" invalidate-session="true"/>
 		
 		
