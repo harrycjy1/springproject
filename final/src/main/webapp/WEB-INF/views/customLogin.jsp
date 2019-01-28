@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input name="remember-me" type="checkbox">Remember Me
+                                        <input name="remember-me" type="checkbox">로그인 유지
                                     </label>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->

@@ -36,7 +36,10 @@
 					<script>
 
                	 		ClassicEditor
-                		.create( document.querySelector('#editor'))
+                		.create( document.querySelector('#editor'),{
+                	        removePlugins: [ 'Heading', 'Link' , 'italic', 'bulletedList', 'numberedList', 'blockQuote'  ],
+                	        toolbar : ['']
+                	    })
                	 		.then( newEditor => {
        					 editor = newEditor;
        					 editor.ui.view.editable.editableElement.style.height = '250px';
