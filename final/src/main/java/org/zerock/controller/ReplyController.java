@@ -51,7 +51,7 @@ public class ReplyController {
 	@GetMapping(value="/pages/{bno}/{page}",
 			produces= {
 					MediaType.APPLICATION_XML_VALUE,
-					MediaType.APPLICATION_JSON_UTF8_VALUE })
+					MediaType.APPLICATION_JSON_UTF8_VALUE }) //produces 속성은 해당 메서드가 생산하는 MIME타입을 의미함
 	public ResponseEntity<ReplyPageDTO> getList(
 			@PathVariable("page") int page,
 			@PathVariable("bno") Long bno){

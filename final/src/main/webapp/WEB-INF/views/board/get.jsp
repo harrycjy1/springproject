@@ -246,7 +246,10 @@
         function showList(page){
 
           replyService.getList({bno:bnoValue, page : page||1}, function(replyCnt,list){
-			
+        	 
+        	console.log("replyCnt: "+ replyCnt );
+            console.log("list: " + list);
+            console.log(list);
 
             if(page == -1){
               pageNum = Math.ceil(replyCnt/10.0);
@@ -289,7 +292,7 @@
             endNum  = Math.ceil(replyCnt/10.0);
           }
 
-          if(endNum * 10 <replyCnt){
+          if(endNum * 10 <replyCnt){ 
             next = true;
           }
 
@@ -315,7 +318,7 @@
 
           str += "</ul></div>";
 
-          console.log(str);
+          /* console.log(str); */
 
           replyPageFooter.html(str);
 
@@ -375,6 +378,8 @@
         $(document).ajaxSend(function(e, xhr, options){
         	xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
         });
+        
+        
         modalRegisterBtn.on("click", function(e) {
 
           var reply = {
@@ -452,7 +457,7 @@
           var rno = modal.data("rno");
 
           console.log("RNO : "+rno);
-          console.log("REPLYER : "+replyer);
+          
 
           if(!replyer){
             alert("로그인 후 삭제가 가능합니다.");
@@ -535,7 +540,7 @@
             $(".uploadResult ul").html(str);
 
           }); //end get JSON
-        })(); //end function
+        })(); //end function execute immediately
 
         //CLICK IMAGE ON
         $(".uploadResult").on("click","li",function(e){

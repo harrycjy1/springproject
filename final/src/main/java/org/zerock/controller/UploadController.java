@@ -128,7 +128,7 @@ public class UploadController {
 
 					try {
 						File saveFile = new File(uploadPath, uploadFileName);
-						multipartFile.transferTo(saveFile);
+						multipartFile.transferTo(saveFile);	
 
 						attachDTO.setUuid(uuid.toString());
 						attachDTO.setUploadPath(uploadFolderPath);

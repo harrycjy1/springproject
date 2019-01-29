@@ -204,7 +204,7 @@
             var formData = new FormData();
 
             var inputFile = $("input[name='uploadFile']");
-
+			
             var files = inputFile[0].files;
 
             for(var i=0; i<files.length; i++){
@@ -277,7 +277,7 @@
           $(".uploadResult").on("click","button",function(e){
 
         	  console.log("delete file");
-
+        	
         	var targetFile = $(this).data("file");
             var type = $(this).data("type");
 
@@ -300,6 +300,7 @@
                 type : 'POST',
                 success : function(result){
                   targetLi.remove();
+                  
                 }
 
               }); //$.Ajax

@@ -35,8 +35,12 @@
 		update tbl_board set replycnt = replycnt + #{amount} where bno = #{bno}
 	</update>
 	
+	
+	<!-- prefixoverride = 시작하는 구문은 or을 제외 -->
+	
+	
 	<sql id="criteria">
-		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR"> 
 			<foreach item="type" collection="typeArr">
 				<trim prefix="OR">
 					<choose>
@@ -56,17 +60,7 @@
 				 select /*+ INDEX_DESC(tbl_board pk_board) */ rownum rn, bno, title, content, writer, regdate, updateddate, replycnt
 				 from tbl_board where
 		]]>
-			<!-- <trim prefix="(" suffix=") AND " prefixOverrides="OR">
-				<foreach item='type' collection="typeArr">
-					<trim prefix="OR">
-						<choose>
-							<when test="type == 'T'.toString()">title like '%'||#{keyword}||'%'</when>
-							<when test="type == 'C'.toString()">content like '%'||#{keyword}||'%'</when>
-							<when test="type == 'W'.toString()">writer like '%'||#{keyword}||'%'</when>
-						</choose>
-					</trim>
-				</foreach>
-			</trim> -->
+
 		<include refid="criteria"></include>
 
 		<![CDATA[
