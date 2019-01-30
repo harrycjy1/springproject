@@ -79,11 +79,11 @@
 				
 				<sec:authorize access="isAuthenticated()">
 					<c:if test="${pinfo.username eq board.writer }">		
-    					<button type="submit" data-oper='modify' class="btn btn-default btn-submit">Modify</button>
-    					<button type="submit" data-oper='remove' class="btn btn-danger btn-submit">Remove</button>
+    					<button type="submit" data-oper='modify' class="btn btn-primary btn-submit">확인</button>
+    					<button type="submit" data-oper='remove' class="btn btn-danger btn-submit">삭제</button>
     				</c:if>	
     			</sec:authorize>
-    					<button type="submit" data-oper='list' class="btn btn-info btn-submit">List</button>
+    					<button type="submit" data-oper='list' class="btn btn-info btn-submit">목록</button>
 
     			</form>
 

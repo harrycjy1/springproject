@@ -64,11 +64,11 @@
 
 				<sec:authorize access="isAuthenticated()">
 					<c:if test="${pinfo.username eq board.writer }">
-						<button data-oper='modify' class="btn btn-default">Modify</button>
+						<button data-oper='modify' class="btn btn-warning">수정</button>
 					</c:if>
 				</sec:authorize>
 
-				<button data-oper='list' class="btn btn-default">List</button>
+				<button data-oper='list' class="btn btn-default">목록</button>
 
 
 				<form id="operForm" action="/board/modify" method="get">
@@ -202,7 +202,7 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">REPLY MODAL</h4>
+				<h4 class="modal-title" id="myModalLabel">REPLY</h4>
 			</div>
 			<div class="modal-body">
 				<div class="form-group">
@@ -220,10 +220,10 @@
 			</div>
 
 			<div class="modal-footer">
-				<button id="modalModBtn" type="button" class="btn btn-warning">Modify</button>
-				<button id="modalRemoveBtn" type="button" class="btn btn-danger">Remove</button>
-				<button id="modalRegisterBtn" type="button" class="btn btn-primary">Register</button>
-				<button id="modalCloseBtn" type="button" class="btn btn-default">Close</button>
+				<button id="modalModBtn" type="button" class="btn btn-warning">수정</button>
+				<button id="modalRemoveBtn" type="button" class="btn btn-danger">삭제</button>
+				<button id="modalRegisterBtn" type="button" class="btn btn-primary">등록</button>
+				<button id="modalCloseBtn" type="button" class="btn btn-default">닫기</button>
 			</div>
 		</div>
 
