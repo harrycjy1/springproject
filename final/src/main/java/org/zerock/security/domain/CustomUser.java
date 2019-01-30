@@ -26,7 +26,7 @@ public class CustomUser extends User{
 	public CustomUser(MemberVO vo) {
 		
 		super(vo.getUserid(), vo.getUserpw(), vo.getAuthList().stream()
-			.map(auth -> new SimpleGrantedAuthority(auth.getAuth())).collect(Collectors.toList()));
+			.map(auth -> new SimpleGrantedAuthority(auth.getAuth())).collect(Collectors.toList())); //모은 스트림을 리스트로 반환
 		
 		this.member = vo;
 	}
