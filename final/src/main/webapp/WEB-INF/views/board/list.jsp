@@ -20,7 +20,7 @@
                     	<table class="table table-striped table-bordered table-hover">
                     		<thead>
                     			<tr>
-                    				<th>#번호</th>
+                    				
                     				<th>제목</th>
                     				<th>작성자</th>
                     				<th>작성일</th>
@@ -30,7 +30,7 @@
 
                				<c:forEach items="${list}" var="board">
                					<tr>
-               						<td><c:out value="${board.bno }"/></td>
+               						
                						<td><a class='move' href='<c:out value="${board.bno }"/>'>
                						<c:out value="${board.title }"/> <b>[ <c:out value="${board.replyCnt }"></c:out> ]</b>
                						</a></td>
