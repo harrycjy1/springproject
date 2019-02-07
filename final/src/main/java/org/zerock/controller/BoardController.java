@@ -22,7 +22,7 @@ import org.zerock.domain.BoardAttachVO;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.PageDTO;
-import org.zerock.domain.ReplyVO;
+
 import org.zerock.service.BoardService;
 
 import lombok.AllArgsConstructor;
